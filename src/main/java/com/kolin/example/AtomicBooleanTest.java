@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.LongAdder;
  */
 @Slf4j
 @ThreadSafe
-public class CountExample4 {
+public class AtomicBooleanTest {
     /**
      * 请求总数
      */
