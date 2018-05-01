@@ -1,4 +1,4 @@
-package com.kolin.example;
+package com.kolin.atomic;
 
 import com.kolin.annoations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;

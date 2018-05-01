@@ -1,14 +1,10 @@
-package com.kolin.example;
+package com.kolin.atomic;
 
 import com.kolin.annoations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 测试
@@ -17,28 +13,35 @@ import java.util.concurrent.atomic.LongAdder;
  */
 @Slf4j
 @ThreadSafe
-public class CountExample3 {
+public class AtomicBooleanTest2 {
     /**
      * 请求总数
      */
     public static int clientTotal = 5000;
-
     /**
      * 同时并发执行的线程数
      */
     public static int threadTotal = 200;
 
-    public static LongAdder count = new LongAdder();
+    private static AtomicBoolean isHappened = new AtomicBoolean(false);
 
     public static void main(String[] args) throws Exception {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        //手动穿件线程池
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 200, 0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(1024),
+                (r) -> {
+                    Thread t = new Thread(r);
+                    System.out.println("生成线程 " + t);
+                    return t;
+                });
         final Semaphore semaphore = new Semaphore(threadTotal);
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
         for (int i = 0; i < clientTotal ; i++) {
-            executorService.execute(() -> {
+            threadPoolExecutor.execute(() -> {
                 try {
                     semaphore.acquire();
-                    add();
+                    test();
                     semaphore.release();
                 } catch (Exception e) {
                     log.error("exception", e);
@@ -47,11 +50,13 @@ public class CountExample3 {
             });
         }
         countDownLatch.await();
-        executorService.shutdown();
-        log.info("count:{}", count);
+        threadPoolExecutor.shutdown();
+        log.info("isHappened:{}", isHappened.get());
     }
 
-    private static void add() {
-        count.increment();
+    private static void test() {
+        if (isHappened.compareAndSet(false, true)) {
+            log.info("my execute");
+        }
     }
 }
