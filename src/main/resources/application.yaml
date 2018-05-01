@@ -1,7 +1,7 @@
 spring:
   task:
     pool:
-      corePoolSize : 10
+      corePoolSize : 4
       maxPoolSize : 20
       keepAliveSeconds : 60
       queueCapacity : 200
