@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 public class DoSomeThing {
 
 
-
-
     @Async(value = "myTaskAsyncPool")
     public void produc() {
         System.out.println("任务产生了");
