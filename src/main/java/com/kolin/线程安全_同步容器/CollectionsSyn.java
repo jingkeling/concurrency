@@ -21,14 +21,23 @@ public class CollectionsSyn {
     private static int clientTotal = 5000;
 
 
+    /**
+     * list
+     */
     private static List list = new ArrayList<Integer>();
     private static List list1 = new Vector<Integer>();
     private static List<Integer> list2 = Collections.synchronizedList(Lists.newArrayList());
 
+    /**
+     * map
+     */
     private static Map<Integer, Integer> map = new HashMap<>();
     private static Map<Integer, Integer> map1 = new Hashtable<>();
     private static Map<Integer, Integer> map2 = Collections.synchronizedMap(Maps.newHashMap());
 
+    /**
+     * set
+     */
     private static Set<Integer> set = Sets.newHashSet();
     private static Set<Integer> set1 = Collections.synchronizedSet(Sets.newHashSet());
 
