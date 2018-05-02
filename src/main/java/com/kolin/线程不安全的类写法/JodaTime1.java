@@ -9,6 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.*;
 
 /**
+ * 线程安全的
  * @Author jingkeling
  * @Date 2018/5/1 23:09
  */
@@ -52,7 +53,7 @@ public class JodaTime1 {
     }
 
     private static void update(int i) {
-        log.info("{},{}",i, DateTime.parse("20180208", dateTimeFormatter).toDate() );
+        log.info("{},{}",i, DateTime.parse("20180208", dateTimeFormatter) );
     }
 
 

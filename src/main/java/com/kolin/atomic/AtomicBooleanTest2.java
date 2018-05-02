@@ -26,7 +26,7 @@ public class AtomicBooleanTest2 {
     private static AtomicBoolean isHappened = new AtomicBoolean(false);
 
     public static void main(String[] args) throws Exception {
-        //手动穿件线程池
+        //手动创建线程池
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 200, 0L,
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(1024),

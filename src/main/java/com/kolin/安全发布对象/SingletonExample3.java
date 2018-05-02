@@ -1,7 +1,7 @@
 package com.kolin.安全发布对象;
 
 /**
- * 懒汉模式　＋　双重锁 线程还是不安全
+ * 懒汉模式　＋　双重判断 线程还是不安全
  * @Author jingkeling
  * @Date 2018/4/27 20:01
  */
@@ -27,10 +27,11 @@ public class SingletonExample3 {
      */
     public static SingletonExample3 getInstance() {
         /**
-         * 如果不用双重锁，每次进来都加锁
+         * 如果不用双重判断，每次进来都加锁
          */
         if (instance == null) {
             synchronized (SingletonExample3.class) {
+                //只不过只有双重判断还不够，第二个线程拿到的instance可能不是最新的
                 if (instance == null) {
                     instance = new SingletonExample3();
                 }

@@ -18,6 +18,7 @@ public class SingletonExample1 {
      * @return
      */
     public static SingletonExample1 getInstance() {
+        //线程不安全，创建了多个对象
         if (instance == null) {
             return new SingletonExample1();
         }

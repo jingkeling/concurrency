@@ -1,7 +1,7 @@
 package com.kolin.安全发布对象;
 
 /**
- * 懒汉模式　+　双重锁 +volatile 线程安全
+ * 懒汉模式　+　双重判断 +volatile 线程安全
  * @Author jingkeling
  * @Date 2018/4/27 20:01
  */
@@ -27,7 +27,7 @@ public class SingletonExample4 {
      */
     public static  SingletonExample4 getInstance() {
         /**
-         * 如果不用双重锁，每次进来都加锁
+         * 如果不用双重判断，每次进来都加锁
          */
         if (instance == null) {
             synchronized (SingletonExample4.class) {
